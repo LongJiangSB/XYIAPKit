@@ -46,6 +46,11 @@
     
     [invalidProductIdentifiers enumerateObjectsUsingBlock:^(NSString *invalid, NSUInteger idx, BOOL *stop) {
         NSLog(@"invalid product with id %@", invalid);
+        NSError *invalidError = [[NSError alloc] initWithDomain:[NSString stringWithFormat:@"invalid product with id %@", invalid] code:1001 userInfo:nil];
+        if (self.failureBlock)
+        {
+            self.failureBlock(invalidError);
+        }
     }];
     
     if (self.successBlock)
